@@ -1,0 +1,24 @@
+{
+    "name": "reach-digital/magento2-apollo-sandbox",
+    "description": "Embeds Apollo Sandbox at /graphql-sandbox",
+    "authors": [
+        {
+            "name": "Hans Nieser",
+            "email": "hans@reachdigital.nl"
+        }
+    ],
+    "require": {
+        "php": "~7.4.0||~8.1.0",
+        "magento/product-community-edition": "^2.3"
+    },
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "ReachDigital\\ApolloSandbox\\": "src/"
+        }
+    }
+}
+
