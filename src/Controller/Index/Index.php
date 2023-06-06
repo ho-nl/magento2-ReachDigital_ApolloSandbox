@@ -45,7 +45,8 @@ class Index extends Action implements HttpGetActionInterface
             <script>
                 new window.EmbeddedSandbox({
                     target: "#embedded-sandbox",
-                    initialEndpoint: "' . $this->escaper->escapeUrl($this->getGraphqlUrl()) . '"
+                    initialEndpoint: "' . $this->escaper->escapeUrl($this->getGraphqlUrl()) . '",
+                    includeCookies: true
                 });
             </script>
         </body>';
