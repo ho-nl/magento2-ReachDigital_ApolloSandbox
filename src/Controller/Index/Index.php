@@ -39,17 +39,24 @@ class Index extends Action implements HttpGetActionInterface
 
     private function getEmbedScript(): string
     {
-        return '<body style="margin:0;padding:0;">
-            <div style="width: 100%; height: 100%;" id="embedded-sandbox"></div>
-            <script src="https://embeddable-sandbox.cdn.apollographql.com/_latest/embeddable-sandbox.umd.production.min.js"></script>
-            <script>
-                new window.EmbeddedSandbox({
-                    target: "#embedded-sandbox",
-                    initialEndpoint: "' . $this->escaper->escapeUrl($this->getGraphqlUrl()) . '",
-                    includeCookies: true
-                });
-            </script>
-        </body>';
+        return '
+<html>
+    <head>
+        <title>Apollo Sandbox</title>
+    </head>
+    <body style="margin:0;padding:0">
+        <div style="width: 100%; height: 100%;" id="embedded-sandbox"></div>
+        <script src="https://embeddable-sandbox.cdn.apollographql.com/_latest/embeddable-sandbox.umd.production.min.js"></script>
+        <script>
+            new window.EmbeddedSandbox({
+                target: "#embedded-sandbox",
+                initialEndpoint: "' . $this->escaper->escapeUrl($this->getGraphqlUrl()) . '",
+                includeCookies: true
+            });
+        </script>
+    </body>
+</html>
+';
     }
 
     private function getGraphqlUrl(): string
