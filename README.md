@@ -6,4 +6,5 @@ calls using the xdebug cookie helper extension.
 Installation:
 ```
 composer require reach-digital/magento2-apollo-sandbox
+bin/magento setup:upgrade
 ```
