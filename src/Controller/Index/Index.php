@@ -61,6 +61,6 @@ class Index extends Action implements HttpGetActionInterface
 
     private function getGraphqlUrl(): string
     {
-        return rtrim($this->urlBuilder->getBaseUrl(), '/') . '/graphql';
+        return rtrim($this->urlBuilder->getBaseUrl([ '_scope' => 0 ]), '/') . '/graphql';
     }
 }
