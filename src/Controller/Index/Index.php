@@ -7,20 +7,18 @@ namespace ReachDigital\ApolloSandbox\Controller\Index;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Framework\Escaper;
+use Magento\Framework\UrlInterface;
 
 class Index extends Action implements HttpGetActionInterface
 {
-    private \Magento\Framework\Controller\Result\RawFactory $rawFactory;
-    private \Magento\Framework\UrlInterface $urlBuilder;
+    private RawFactory $rawFactory;
+    private UrlInterface $urlBuilder;
     private Escaper $escaper;
 
-    public function __construct(
-        Context $context,
-        \Magento\Framework\Controller\Result\RawFactory $rawFactory,
-        \Magento\Framework\UrlInterface $urlBuilder,
-        Escaper $escaper
-    ) {
+    public function __construct(Context $context, RawFactory $rawFactory, UrlInterface $urlBuilder, Escaper $escaper)
+    {
         parent::__construct($context);
         $this->rawFactory = $rawFactory;
         $this->urlBuilder = $urlBuilder;
@@ -37,6 +35,9 @@ class Index extends Action implements HttpGetActionInterface
         return $rawResponse;
     }
 
+    /**
+     * @prettier-ignore
+     */
     private function getEmbedScript(): string
     {
         return '
@@ -51,7 +52,10 @@ class Index extends Action implements HttpGetActionInterface
             new window.EmbeddedSandbox({
                 target: "#embedded-sandbox",
                 initialEndpoint: "' . $this->escaper->escapeUrl($this->getGraphqlUrl()) . '",
-                includeCookies: true
+                includeCookies: true,
+                initialState: {
+                  pollForSchemaUpdates: false
+                }
             });
         </script>
     </body>
@@ -61,6 +65,6 @@ class Index extends Action implements HttpGetActionInterface
 
     private function getGraphqlUrl(): string
     {
-        return rtrim($this->urlBuilder->getBaseUrl([ '_scope' => 0 ]), '/') . '/graphql';
+        return rtrim($this->urlBuilder->getBaseUrl(['_scope' => 0]), '/') . '/graphql';
     }
 }
